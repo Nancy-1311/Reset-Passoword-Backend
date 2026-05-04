@@ -19,30 +19,18 @@ exports.forgotPassword = async (req, res) => {
   user.resetTokenExpiry = Date.now() + 15 * 60 * 1000; // 15 min
 
   console.log("EMAIL:", process.env.EMAIL);
-console.log("PASSWORD:", process.env.PASSWORD);
+  console.log("PASSWORD:", process.env.PASSWORD);
 
   await user.save();
 
-  const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
-    auth: {
-      user: process.env.EMAIL,
-      pass: process.env.PASSWORD
-    }
+  const resetLink = `https://reset-password-frontend-vd2b.vercel.app/reset-password/${token}`;
+
+  console.log("RESET LINK:", resetLink);
+
+  res.json({
+    message: "Reset link generated",
+    resetLink: resetLink
   });
-
-  const resetLink = `https://reset-passoword-frontend-vd2b.vercel.app/reset-password/${token}`;
-
-  await transporter.sendMail({
-    to: user.email,
-    subject: "Password Reset",
-    html: `<p>Click below to reset password:</p>
-           <a href="${resetLink}">${resetLink}</a>`
-  });
-
-  res.json({ message: "Reset link sent" });
 };
 
 exports.resetPassword = async (req, res) => {
