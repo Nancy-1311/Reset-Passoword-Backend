@@ -7,7 +7,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cors({
-  origin: "https://reset-passoword-frontend-vd2b.vercel.app/"
+  origin: "https://reset-passoword-frontend-vd2b.vercel.app"
 }));
 
 mongoose.connect(process.env.MONGO_URI)
