@@ -18,6 +18,9 @@ exports.forgotPassword = async (req, res) => {
   user.resetToken = token;
   user.resetTokenExpiry = Date.now() + 15 * 60 * 1000; // 15 min
 
+  console.log("EMAIL:", process.env.EMAIL);
+console.log("PASSWORD:", process.env.PASSWORD);
+
   await user.save();
 
   const transporter = nodemailer.createTransport({
