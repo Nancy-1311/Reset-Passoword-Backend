@@ -5,6 +5,10 @@ require("dotenv").config();
 
 const app = express();
 
+app.get("/", (req, res) => {
+  res.send("Backend is running 🚀");
+});
+
 app.use(express.json());
 app.use(cors({
   origin: "https://reset-passoword-frontend-vd2b.vercel.app"
