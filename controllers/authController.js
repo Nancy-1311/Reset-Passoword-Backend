@@ -21,14 +21,16 @@ exports.forgotPassword = async (req, res) => {
   await user.save();
 
   const transporter = nodemailer.createTransport({
-    service: "gmail",
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false,
     auth: {
       user: process.env.EMAIL,
       pass: process.env.PASSWORD
     }
   });
 
-  const resetLink = `http://localhost:3000/reset-password/${token}`;
+  const resetLink = `https://reset-passoword-frontend-vd2b.vercel.app/reset-password/${token}`;
 
   await transporter.sendMail({
     to: user.email,
